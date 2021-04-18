@@ -2,12 +2,16 @@ package com.itmo.egalkin.client;
 
 import com.itmo.egalkin.generated.Device;
 import com.itmo.egalkin.generated.DeviceService;
+import com.itmo.egalkin.generated.GetDevicesResponse;
 
+import javax.xml.ws.Response;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 /**
  * @author egalkin
@@ -18,23 +22,31 @@ public class WebServiceClient {
     private static final String[] PARAM_NAMES = new String[] {"name", "price", "type", "available", "releaseYear"};
 
     // expect params in string form: param:value
-    public static void main(String[] args) throws MalformedURLException {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
         List<String> parsedParams = parseArgs(args);
-        URL url = new URL("http://localhost:8081/DeviceService?wsdl");
 
-        DeviceService deviceService = new DeviceService(url);
+        DeviceService deviceService = new DeviceService();
 
-        List<Device> devices = deviceService.getDeviceWebServicePort().getDevices(
+        Future<?> future = deviceService.getDeviceWebServicePort().getDevicesAsync(
             parsedParams.get(0),
             parsedParams.get(1),
             parsedParams.get(2),
             parsedParams.get(3),
-            parsedParams.get(4)
+            parsedParams.get(4),
+            res -> {
+                try {
+                    List<Device> devices = res.get().getReturn();
+                    for (Device device : res.get().getReturn()) {
+                        System.out.println(deviceToString(device));
+                    }
+                    System.out.println("Total devices: " + devices.size());
+                } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }
         );
-        for (Device device : devices) {
-            System.out.println(deviceToString(device));
-        }
-        System.out.println("Total devices: " + devices.size());
+        future.get();
+
     }
 
     private static List<String> parseArgs(String... args) {

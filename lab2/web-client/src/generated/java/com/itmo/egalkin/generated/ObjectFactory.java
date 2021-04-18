@@ -41,43 +41,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetDevices }
+     * Create an instance of {@link DeleteDeviceResponse }
      * 
      */
-    public GetDevices createGetDevices() {
-        return new GetDevices();
-    }
-
-    /**
-     * Create an instance of {@link UpdateDevice }
-     * 
-     */
-    public UpdateDevice createUpdateDevice() {
-        return new UpdateDevice();
-    }
-
-    /**
-     * Create an instance of {@link UpdateDeviceResponse }
-     * 
-     */
-    public UpdateDeviceResponse createUpdateDeviceResponse() {
-        return new UpdateDeviceResponse();
-    }
-
-    /**
-     * Create an instance of {@link DeleteDevice }
-     * 
-     */
-    public DeleteDevice createDeleteDevice() {
-        return new DeleteDevice();
-    }
-
-    /**
-     * Create an instance of {@link GetDevicesResponse }
-     * 
-     */
-    public GetDevicesResponse createGetDevicesResponse() {
-        return new GetDevicesResponse();
+    public DeleteDeviceResponse createDeleteDeviceResponse() {
+        return new DeleteDeviceResponse();
     }
 
     /**
@@ -89,11 +57,43 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DeleteDeviceResponse }
+     * Create an instance of {@link Device }
      * 
      */
-    public DeleteDeviceResponse createDeleteDeviceResponse() {
-        return new DeleteDeviceResponse();
+    public Device createDevice() {
+        return new Device();
+    }
+
+    /**
+     * Create an instance of {@link GetDevicesResponse }
+     * 
+     */
+    public GetDevicesResponse createGetDevicesResponse() {
+        return new GetDevicesResponse();
+    }
+
+    /**
+     * Create an instance of {@link UpdateDevice }
+     * 
+     */
+    public UpdateDevice createUpdateDevice() {
+        return new UpdateDevice();
+    }
+
+    /**
+     * Create an instance of {@link DeleteDevice }
+     * 
+     */
+    public DeleteDevice createDeleteDevice() {
+        return new DeleteDevice();
+    }
+
+    /**
+     * Create an instance of {@link GetDevices }
+     * 
+     */
+    public GetDevices createGetDevices() {
+        return new GetDevices();
     }
 
     /**
@@ -105,11 +105,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Device }
+     * Create an instance of {@link UpdateDeviceResponse }
      * 
      */
-    public Device createDevice() {
-        return new Device();
+    public UpdateDeviceResponse createUpdateDeviceResponse() {
+        return new UpdateDeviceResponse();
     }
 
     /**

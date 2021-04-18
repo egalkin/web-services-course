@@ -13,6 +13,40 @@
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
+
+    <profiles>
+        <profile>
+            <id>wsimport</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>jaxws-maven-plugin</artifactId>
+                        <version>1.12</version>
+                        <executions>
+                            <execution>
+                                <id>client</id>
+                                <goals>
+                                    <goal>wsimport</goal>
+                                </goals>
+                                <configuration>
+                                    <wsdlUrls>
+                                        <wsdlUrl>http://localhost:8081/DeviceService?wsdl</wsdlUrl>
+                                    </wsdlUrls>
+                                    <bindingDirectory>${basedir}/src/main/resources</bindingDirectory>
+                                    <keep>true</keep>
+                                    <packageName>com.itmo.egalkin.generated</packageName>
+                                    <sourceDestDir>src/generated/java</sourceDestDir>
+                                </configuration>
+                            </execution>
+
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
     <dependencies>
         <dependency>
             <groupId>com.sun.jersey</groupId>
