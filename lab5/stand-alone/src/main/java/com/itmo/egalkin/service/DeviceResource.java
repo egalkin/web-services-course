@@ -7,6 +7,7 @@ package com.itmo.egalkin.service;
 
 import com.itmo.egalkin.model.Device;
 import com.itmo.egalkin.model.PostgreSQLDAO;
+import com.itmo.egalkin.throttling.ThrottlingController;
 
 import java.util.List;
 import javax.ws.rs.Consumes;
@@ -31,7 +32,9 @@ public class DeviceResource {
                                        @QueryParam("available") String available,
                                        @QueryParam("releaseYear") String releaseYear) {
         PostgreSQLDAO dao = new PostgreSQLDAO();
-        return dao.getDevices(name, price, type, available, releaseYear);
+        List<Device> result = dao.getDevices(name, price, type, available, releaseYear);
+        ThrottlingController.decrementRequestNumber();
+        return result;
     }
 
     @POST
@@ -39,7 +42,9 @@ public class DeviceResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String createDevice(Device device) {
         PostgreSQLDAO dao = new PostgreSQLDAO();
-        return dao.createDevice(device);
+        String result = dao.createDevice(device);
+        ThrottlingController.decrementRequestNumber();
+        return result;
     }
 
     @Path("/{id}")
@@ -48,7 +53,9 @@ public class DeviceResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String updateDevice(@PathParam("id") Long id, Device device) {
         PostgreSQLDAO dao = new PostgreSQLDAO();
-        return dao.updateDevice(id, device);
+        String result = dao.updateDevice(id, device);
+        ThrottlingController.decrementRequestNumber();
+        return result;
     }
 
     @Path("/{id}")
@@ -57,7 +64,9 @@ public class DeviceResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String deleteDevice(@PathParam("id") Long id) {
         PostgreSQLDAO dao = new PostgreSQLDAO();
-        return dao.deleteDevice(id);
+        String result = dao.deleteDevice(id);
+        ThrottlingController.decrementRequestNumber();
+        return result;
     }
 
 }
